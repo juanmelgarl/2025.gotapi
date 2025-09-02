@@ -1,0 +1,6 @@
+@GotSeries.Api.Service_HostAddress = http://localhost:5275
+
+GET {{GotSeries.Api.Service_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
