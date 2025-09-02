@@ -3,81 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
-    public class KingdomsController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class KingdomsController : ControllerBase
     {
-        // GET: KingdomsController
-        public ActionResult Index()
-        {
-            return View();
-        }
-
-        // GET: KingdomsController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: KingdomsController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: KingdomsController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: KingdomsController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: KingdomsController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: KingdomsController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: KingdomsController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
