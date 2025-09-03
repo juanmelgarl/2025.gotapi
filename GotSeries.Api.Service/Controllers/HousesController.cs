@@ -7,5 +7,6 @@ namespace GotSeries.Api.Service.Controllers
     [ApiController]
     public class HousesController : ControllerBase
     {
+
     }
 }
