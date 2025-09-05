@@ -24,5 +24,6 @@ namespace GotSeries.Api.Service.Controllers
                 return BadRequest("error");
             }
         }
+        //api//
     }
 }
