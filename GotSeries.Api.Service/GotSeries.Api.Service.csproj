@@ -12,4 +12,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOS\RESPONSE\" />
+    <Folder Include="DTOS\REQUEST\" />
+    <Folder Include="NewFolder\" />
+  </ItemGroup>
+
 </Project>

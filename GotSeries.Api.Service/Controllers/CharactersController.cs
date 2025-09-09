@@ -29,7 +29,9 @@ namespace GotSeries.Api.Service.Controllers
         }
         [HttpPost("/api/v1/characters/{id}/death")]
         public IActionResult registerdeaths()
-        { throw new NotImplementedException(); }
+        { 
+            throw new NotImplementedException();
+        }
         [HttpGet("/api/v1/characters/{Id}/kills")]
         public IActionResult registerkills()
         {

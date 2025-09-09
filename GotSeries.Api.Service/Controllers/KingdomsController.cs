@@ -14,17 +14,25 @@ namespace GotSeries.Api.Service.Controllers
         }
         [HttpGet("/api/v1/kingdoms/{Id}/locations")]
         public IActionResult listadoubicaciones
-            () { throw new NotImplementedException(); }
+            ()
+        {
+            throw new NotImplementedException();
+        }
         [HttpPut("/api/v1/kingdoms/{Id}/locations/{\r\nlocationId}")]
         public IActionResult modificar()
         {
             throw new NotImplementedException();
         }
         [HttpGet("/api/v1/kingdoms/{Id}/houses")]
-        public IActionResult listadorcasas() { throw new NotImplementedException(); }
+        public IActionResult listadorcasas() 
+        {
+            throw new NotImplementedException();
+        }
         [HttpPost("/api/v1/kingdoms/{Id}/houses")]
         public IActionResult crearcasa()
-            { throw new NotImplementedException(); }
+            { 
+            throw new NotImplementedException(); 
+        }
         [HttpPost("/api/v1/kingdoms/{Id}/houses/{h\r\nouseId}")]
         public IActionResult modificadatoscasa()
         {
