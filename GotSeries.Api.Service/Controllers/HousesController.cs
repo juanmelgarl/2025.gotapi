@@ -7,6 +7,27 @@ namespace GotSeries.Api.Service.Controllers
     [ApiController]
     public class HousesController : ControllerBase
     {
+        [HttpGet("/api/v1/houses")]
+        public IActionResult listadocasas()
+        {
+            throw new NotImplementedException();
+        }
+        [HttpGet("/api/v1/houses/{Id}")]
+        public IActionResult returnhouse()
+        {
+            throw new NotImplementedException();
+        }
+        [HttpGet("/api/v1/houses/{Id}/battles")]
+        public IActionResult returnbatallas()
+        {
+            throw new NotImplementedException();
+
+        }
+        [HttpPut("/api/v1/houses/{Id}")]
+        public IActionResult modificacasas()
+        { throw new NotImplementedException(); }
+
+
 
     }
 }
