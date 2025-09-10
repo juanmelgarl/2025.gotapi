@@ -13,18 +13,18 @@ namespace GotSeries.Api.Service.Controllers
             throw new NotImplementedException();
         }
         [HttpGet("/api/v1/houses/{Id}")]
-        public IActionResult returnhouse()
+        public IActionResult returnhouse(int id)
         {
             throw new NotImplementedException();
         }
         [HttpGet("/api/v1/houses/{Id}/battles")]
-        public IActionResult returnbatallas()
+        public IActionResult returnbatallas(int id)
         {
             throw new NotImplementedException();
 
         }
         [HttpPut("/api/v1/houses/{Id}")]
-        public IActionResult modificacasas()
+        public IActionResult modificacasas(int id)
         { throw new NotImplementedException(); }
 
 

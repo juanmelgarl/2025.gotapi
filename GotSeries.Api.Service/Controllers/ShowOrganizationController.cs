@@ -14,13 +14,13 @@ namespace GotSeries.Api.Service.Controllers
 
         }
         [HttpGet("/api/v1/show/seasons/{id}/chapt\r\ner")]
-        public IActionResult listarcapitulos() {
+        public IActionResult listarcapitulos(int id) {
             throw new NotImplementedException(); }
         [HttpGet("/api/v1/show/seasons/{id}/chapt\r\ner/{chapterId}")]
-        public IActionResult detallecapitulo()
+        public IActionResult detallecapitulo(int id,int chapterid)
             { throw new NotImplementedException(); }
         [HttpGet("/api/v1/show/seasons/{id}/chapt\r\ner/{chapterId}/deaths")]
-        public IActionResult listarmuertes()
+        public IActionResult listarmuertes(int id,int chapterid)
         { throw new NotImplementedException(); }
 
     }

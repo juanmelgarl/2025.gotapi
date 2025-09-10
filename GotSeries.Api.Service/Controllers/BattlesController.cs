@@ -13,12 +13,12 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/battles/{id}")]
-        public IActionResult leerbatalla()
+        public IActionResult leerbatalla(int id)
         {
             throw new NotImplementedException();
         }
         [HttpGet("/api/v1/battles/{id}/participation")]
-        public IActionResult listacasas()
+        public IActionResult listacasas(int id)
         {
             throw new NotImplementedException();
         }
@@ -28,18 +28,18 @@ namespace GotSeries.Api.Service.Controllers
             throw new NotImplementedException();
         }
         [HttpPost("/api/v1/battles/{id}/participation")]
-        public IActionResult agregarparticipante(int agregarparticipante)
+        public IActionResult agregarparticipante(int id)
         {
             return Ok("nuevo participante creado");
         }
 
         [HttpPut("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
-        public IActionResult modificarparticipante()
+        public IActionResult modificarparticipante(int id,int participation)
         {
             throw new NotImplementedException();
         }
         [HttpDelete("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
-        public IActionResult delete()
+        public IActionResult delete(int id,int participation)
         {
             throw new NotImplementedException();
         }

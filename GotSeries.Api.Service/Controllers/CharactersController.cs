@@ -23,22 +23,22 @@ namespace GotSeries.Api.Service.Controllers
                 return BadRequest();
         }
         [HttpPatch("/api/v1/characters/{Id}")]
-        public IActionResult cambiartipopersonaje()
+        public IActionResult cambiartipopersonaje(int id)
         {
             throw new NotImplementedException();
         }
         [HttpPost("/api/v1/characters/{id}/death")]
-        public IActionResult registerdeaths()
+        public IActionResult registerdeaths(int id)
         { 
             throw new NotImplementedException();
         }
         [HttpGet("/api/v1/characters/{Id}/kills")]
-        public IActionResult registerkills()
+        public IActionResult registerkills(int id)
         {
             throw new NotImplementedException();
         }
         [HttpGet("/api/v1/characters/{Id}/death")]
-        public IActionResult returnkills()
+        public IActionResult returnkills(int id)
         {
             throw new NotImplementedException();
         }
