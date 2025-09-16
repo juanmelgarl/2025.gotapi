@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GotSeries.Api.Service.DTOS.RESPONSE;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -7,13 +8,13 @@ namespace GotSeries.Api.Service.Controllers
     public class BattlesController : ControllerBase
     {
         [HttpGet("/api/v1/battles")]
-        public IActionResult ListarBatallas()
+        public ActionResult<List<personaje>> ListarBatallas()
         {
-            return Ok("soy una batalla");
+            throw new NotImplementedException();
         }
 
         [HttpGet("/api/v1/battles/{id}")]
-        public IActionResult leerbatalla(int id)
+        public IActionResult leerbatalla(int id,)
         {
             throw new NotImplementedException();
         }
