@@ -1,4 +1,5 @@
-﻿using GotSeries.Api.Service.DTOS.RESPONSE;
+﻿using GotSeries.Api.Service.Domains.Constants;
+using GotSeries.Api.Service.DTOS.RESPONSE;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
@@ -14,7 +15,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/battles/{id}")]
-        public IActionResult leerbatalla(int id,)
+        public IActionResult LeerBatalla(int id, charactertype tipoPersonaje)
         {
             throw new NotImplementedException();
         }
