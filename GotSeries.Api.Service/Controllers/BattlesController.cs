@@ -11,40 +11,43 @@ namespace GotSeries.Api.Service.Controllers
         [HttpGet("/api/v1/battles")]
         public ActionResult<List<personaje>> ListarBatallas()
         {
-            throw new NotImplementedException();
+            return Ok(new List<personaje>()); 
         }
 
         [HttpGet("/api/v1/battles/{id}")]
-        public IActionResult LeerBatalla(int id, charactertype tipoPersonaje)
-
+        public IActionResult LeerBatalla(int id, [FromQuery] charactertype tipoPersonaje)
         {
-            throw new NotImplementedException();
+            return Ok(new { id, tipoPersonaje }); 
         }
+
         [HttpGet("/api/v1/battles/{id}/participation")]
-        public IActionResult listacasas(int id)
+        public IActionResult ListaCasas(int id)
         {
-            throw new NotImplementedException();
-        }
-        [HttpPost("/api/v1/battles")]
-        public IActionResult crearbatalla()
-        {
-            throw new NotImplementedException();
-        }
-        [HttpPost("/api/v1/battles/{id}/participation")]
-        public IActionResult agregarparticipante(int id)
-        {
-            return Ok("nuevo participante creado");
+            return Ok($"Casas participantes en batalla {id}");
         }
 
-        [HttpPut("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
-        public IActionResult modificarparticipante(int id,int participation)
+        [HttpPost("/api/v1/battles")]
+        public IActionResult CrearBatalla()
         {
-            throw new NotImplementedException();
+            return Ok("Batalla creada correctamente");
         }
-        [HttpDelete("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
-        public IActionResult delete(int id,int participation)
+
+        [HttpPost("/api/v1/battles/{id}/participation")]
+        public IActionResult AgregarParticipante(int id)
         {
-            throw new NotImplementedException();
+            return Ok($"Nuevo participante agregado a batalla {id}");
+        }
+
+        [HttpPut("/api/v1/battles/{id}/participation/{participationType}/{participantId}")]
+        public IActionResult ModificarParticipante(int id, string participationType, int participantId)
+        {
+            return Ok(new { id, participationType, participantId });
+        }
+
+        [HttpDelete("/api/v1/battles/{id}/participation/{participationType}/{participantId}")]
+        public IActionResult EliminarParticipante(int id, string participationType, int participantId)
+        {
+            return Ok($"Participante {participantId} eliminado de batalla {id}");
         }
     }
 }

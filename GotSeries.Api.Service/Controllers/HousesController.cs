@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -8,26 +7,27 @@ namespace GotSeries.Api.Service.Controllers
     public class HousesController : ControllerBase
     {
         [HttpGet("/api/v1/houses")]
-        public IActionResult listadocasas()
+        public IActionResult ListadoCasas()
         {
-            throw new NotImplementedException();
+            return Ok("Listado de casas"); 
         }
-        [HttpGet("/api/v1/houses/{Id}")]
-        public IActionResult returnhouse(int id)
+
+        [HttpGet("/api/v1/houses/{id}")]
+        public IActionResult ReturnHouse(int id)
         {
-            throw new NotImplementedException();
+            return Ok($"Detalles de la casa {id}"); 
         }
-        [HttpGet("/api/v1/houses/{Id}/battles")]
-        public IActionResult returnbatallas(int id)
+
+        [HttpGet("/api/v1/houses/{id}/battles")]
+        public IActionResult ReturnBatallas(int id)
         {
-            throw new NotImplementedException();
-
+            return Ok($"Batallas asociadas a la casa {id}"); 
         }
-        [HttpPut("/api/v1/houses/{Id}")]
-        public IActionResult modificacasas(int id)
-        { throw new NotImplementedException(); }
 
-
-
+        [HttpPut("/api/v1/houses/{id}")]
+        public IActionResult ModificaCasas(int id)
+        {
+            return Ok($"Casa {id} modificada"); 
+        }
     }
 }
