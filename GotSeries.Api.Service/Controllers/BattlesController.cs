@@ -16,6 +16,7 @@ namespace GotSeries.Api.Service.Controllers
 
         [HttpGet("/api/v1/battles/{id}")]
         public IActionResult LeerBatalla(int id, charactertype tipoPersonaje)
+
         {
             throw new NotImplementedException();
         }
