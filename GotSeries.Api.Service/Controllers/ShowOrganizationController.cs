@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GotSeries.Api.Service.Code;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -7,13 +8,13 @@ namespace GotSeries.Api.Service.Controllers
     public class ShowOrganizationController : ControllerBase
     {
         [HttpGet("/api/v1/show/seasons")]
-        public IActionResult ListadoTemporadas()
+        public IActionResult ListadoTemporadas(PaginatedRequest paginated)
         {
             return Ok("Listado de temporadas");
         }
 
         [HttpGet("/api/v1/show/seasons/{id}/chapter")]
-        public IActionResult ListarCapitulos(int id)
+        public IActionResult ListarCapitulos(int id, PaginatedRequest paginated)
         {
             return Ok($"Capítulos de la temporada {id}"); 
         }
@@ -25,7 +26,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/show/seasons/{id}/chapter/{chapterId}/deaths")]
-        public IActionResult ListarMuertes(int id, int chapterId)
+        public IActionResult ListarMuertes(int id, int chapterId,PaginatedRequest paginatedRequest)
         {
             return Ok($"Muertes en capítulo {chapterId} de la temporada {id}"); 
         }

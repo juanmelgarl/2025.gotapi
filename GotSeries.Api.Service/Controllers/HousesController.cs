@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GotSeries.Api.Service.Code;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -7,7 +8,7 @@ namespace GotSeries.Api.Service.Controllers
     public class HousesController : ControllerBase
     {
         [HttpGet("/api/v1/houses")]
-        public IActionResult ListadoCasas()
+        public IActionResult ListadoCasas([FromQuery] PaginatedRequest paginatedRequest)
         {
             return Ok("Listado de casas"); 
         }
@@ -19,7 +20,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/houses/{id}/battles")]
-        public IActionResult ReturnBatallas(int id)
+        public IActionResult ReturnBatallas(int id,PaginatedRequest paginated)
         {
             return Ok($"Batallas asociadas a la casa {id}"); 
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GotSeries.Api.Service.Code;
+using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -7,13 +8,13 @@ namespace GotSeries.Api.Service.Controllers
     public class KingdomsController : ControllerBase
     {
         [HttpGet("/api/v1/kingdoms")]
-        public IActionResult ListadoReinos()
+        public IActionResult ListadoReinos(PaginatedRequest paginatedRequest)
         {
             return Ok("Listado de reinos"); // Temporal
         }
 
         [HttpGet("/api/v1/kingdoms/{id}/locations")]
-        public IActionResult ListadoUbicaciones(int id)
+        public IActionResult ListadoUbicaciones(int id,PaginatedRequest paginatedRequest)
         {
             return Ok($"Ubicaciones del reino {id}"); // Temporal
         }
@@ -25,7 +26,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/kingdoms/{id}/houses")]
-        public IActionResult ListadoCasas(int id)
+        public IActionResult ListadoCasas(int id,PaginatedRequest paginated)
         {
             return Ok($"Casas del reino {id}"); 
         }
@@ -43,7 +44,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/kingdoms/{id}/battles")]
-        public IActionResult ListadoBatallas(int id)
+        public IActionResult ListadoBatallas(int id, PaginatedRequest paginated)
         {
             return Ok($"Batallas en reino {id}"); 
         }

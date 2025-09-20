@@ -1,4 +1,5 @@
-﻿using GotSeries.Api.Service.Domains.Constants;
+﻿using GotSeries.Api.Service.Code;
+using GotSeries.Api.Service.Domains.Constants;
 using GotSeries.Api.Service.DTOS.RESPONSE;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace GotSeries.Api.Service.Controllers
     public class BattlesController : ControllerBase
     {
         [HttpGet("/api/v1/battles")]
-        public ActionResult<List<personaje>> ListarBatallas()
+        public ActionResult<List<personaje>> ListarBatallas(PaginatedRequest paginatedRequest)
         {
             return Ok(new List<personaje>()); 
         }
@@ -21,9 +22,9 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/battles/{id}/participation")]
-        public IActionResult ListaCasas(int id)
+        public IActionResult ListaCasas(int id, charactertype tipoPersonaje,PaginatedRequest paginatedRequest)
         {
-            return Ok($"Casas participantes en batalla {id}");
+            return Ok($"Casas  en batalla {id}");
         }
 
         [HttpPost("/api/v1/battles")]
