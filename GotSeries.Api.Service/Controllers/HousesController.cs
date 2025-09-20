@@ -10,6 +10,7 @@ namespace GotSeries.Api.Service.Controllers
         [HttpGet("/api/v1/houses")]
         public IActionResult ListadoCasas([FromQuery] PaginatedRequest paginatedRequest)
         {
+         
             return Ok("Listado de casas"); 
         }
 
@@ -28,6 +29,10 @@ namespace GotSeries.Api.Service.Controllers
         [HttpPut("/api/v1/houses/{id}")]
         public IActionResult ModificaCasas(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return Ok($"Casa {id} modificada"); 
         }
     }

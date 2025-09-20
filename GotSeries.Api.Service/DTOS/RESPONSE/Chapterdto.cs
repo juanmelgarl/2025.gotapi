@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class ChapterDto
 {
     public int id { get; set; }

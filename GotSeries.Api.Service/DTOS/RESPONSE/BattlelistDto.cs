@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class BattlelistDto
 {
     public int amountAttackerSoldiers { get; set; }

@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class housebattledto
 {
     public bool isAttacker { get; set; }

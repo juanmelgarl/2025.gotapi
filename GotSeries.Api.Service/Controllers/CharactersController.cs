@@ -10,6 +10,7 @@ namespace GotSeries.Api.Service.Controllers
         [HttpGet("/api/v1/characters")]
         public IActionResult Get([FromQuery] charactertype tipoPersonaje)
         {
+         
             return Ok(new { tipoPersonaje }); 
         }
 
@@ -17,6 +18,10 @@ namespace GotSeries.Api.Service.Controllers
         [HttpPut("/api/v1/characters/{id}")]
         public IActionResult ModificarParticipante(int? id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             if (id != null)
                 return Ok($"Participante {id} modificado correctamente");
             else

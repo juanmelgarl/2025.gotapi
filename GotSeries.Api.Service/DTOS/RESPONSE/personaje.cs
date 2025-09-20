@@ -1,4 +1,6 @@
 ﻿using GotSeries.Api.Service.Domains.Constants;
+using System.ComponentModel.DataAnnotations;
+
 namespace GotSeries.Api.Service.DTOS.RESPONSE
 
 {

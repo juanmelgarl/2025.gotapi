@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class Rootobject
 {
     public string coatOfArmsUrl { get; set; }

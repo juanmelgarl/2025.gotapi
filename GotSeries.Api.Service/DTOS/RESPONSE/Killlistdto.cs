@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class KilllistDto
 {
     public string allegiance { get; set; }

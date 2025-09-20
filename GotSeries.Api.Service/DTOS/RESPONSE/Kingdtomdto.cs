@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class KingdomDTO
 {
     public int id { get; set; }

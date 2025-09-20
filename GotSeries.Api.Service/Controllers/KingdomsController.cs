@@ -21,7 +21,12 @@ namespace GotSeries.Api.Service.Controllers
 
         [HttpPut("/api/v1/kingdoms/{id}/locations/{locationId}")]
         public IActionResult ModificarUbicacion(int id, int locationId)
+            
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return Ok($"Ubicación {locationId} modificada en reino {id}");
         }
 
@@ -34,12 +39,20 @@ namespace GotSeries.Api.Service.Controllers
         [HttpPost("/api/v1/kingdoms/{id}/houses")]
         public IActionResult CrearCasa(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return Ok($"Casa creada en reino {id}");
         }
 
         [HttpPost("/api/v1/kingdoms/{id}/houses/{houseId}")]
         public IActionResult ModificaDatosCasa(int id, int houseId)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return Ok($"Datos de casa {houseId} modificados en reino {id}"); 
         }
 

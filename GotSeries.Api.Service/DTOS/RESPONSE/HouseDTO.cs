@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class HouseDto
 {
     public string coatOfArmsUrl { get; set; }

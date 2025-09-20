@@ -1,4 +1,5 @@
-﻿
+﻿using System.ComponentModel.DataAnnotations;
+
 public class deathinfodto
 {
     public string allegiance { get; set; }
