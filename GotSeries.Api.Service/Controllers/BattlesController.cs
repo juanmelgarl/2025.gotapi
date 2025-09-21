@@ -11,6 +11,8 @@ namespace GotSeries.Api.Service.Controllers
     public class BattlesController : ControllerBase
     {
         [HttpGet("/api/v1/battles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public ActionResult<List<personaje>> ListarBatallas(PaginatedRequest paginatedRequest)
         {
            
@@ -18,6 +20,8 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/battles/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult LeerBatalla(int id, [FromQuery] charactertype tipoPersonaje, CharacterDto dto)
         {
           
@@ -25,6 +29,8 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/battles/{id}/participation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult ListaCasas(int id, charactertype tipoPersonaje, PaginatedRequest paginatedRequest)
         {
             
@@ -32,6 +38,9 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpPost("/api/v1/battles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public IActionResult CrearBatalla()
         {
 
@@ -51,6 +60,9 @@ namespace GotSeries.Api.Service.Controllers
                 }
 
         [HttpPut("/api/v1/battles/{id}/participation/{participationType}/{participantId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public IActionResult ModificarParticipante(int id, string participationType, int participantId)
         {
             if (!ModelState.IsValid)
@@ -61,6 +73,8 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpDelete("/api/v1/battles/{id}/participation/{participationType}/{participantId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult EliminarParticipante(int id, string participationType, int participantId)
         {
             return Ok($"Participante {participantId} eliminado de batalla {id}");

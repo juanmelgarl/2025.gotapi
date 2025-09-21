@@ -8,6 +8,8 @@ namespace GotSeries.Api.Service.Controllers
     public class HousesController : ControllerBase
     {
         [HttpGet("/api/v1/houses")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult ListadoCasas([FromQuery] PaginatedRequest paginatedRequest)
         {
          
@@ -15,18 +17,25 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet("/api/v1/houses/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult ReturnHouse(int id)
         {
             return Ok($"Detalles de la casa {id}"); 
         }
 
         [HttpGet("/api/v1/houses/{id}/battles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult ReturnBatallas(int id,PaginatedRequest paginated)
         {
             return Ok($"Batallas asociadas a la casa {id}"); 
         }
 
         [HttpPut("/api/v1/houses/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public IActionResult ModificaCasas(int id)
         {
             if (!ModelState.IsValid)

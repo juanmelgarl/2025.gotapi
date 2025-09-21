@@ -8,6 +8,8 @@ namespace GotSeries.Api.Service.Controllers
     public class CharactersController : ControllerBase
     {
         [HttpGet("/api/v1/characters")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult Get([FromQuery] charactertype tipoPersonaje)
         {
          
@@ -16,6 +18,9 @@ namespace GotSeries.Api.Service.Controllers
 
         // PUT /api/v1/characters/5
         [HttpPut("/api/v1/characters/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public IActionResult ModificarParticipante(int? id)
         {
             if (!ModelState.IsValid)
@@ -29,6 +34,8 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpPatch("/api/v1/characters/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult CambiarTipoPersonaje(int id)
         {
             return Ok($"Tipo de personaje del ID {id} actualizado"); 
@@ -36,19 +43,29 @@ namespace GotSeries.Api.Service.Controllers
 
         
         [HttpPost("/api/v1/characters/{id}/death")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+
         public IActionResult RegistrarMuerte(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return Ok($"Muerte registrada para personaje {id}"); 
         }
 
        
         [HttpGet("/api/v1/characters/{id}/kills")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult ObtenerVictimas(int id)
         {
             return Ok($"Victimas del personaje {id}");
         }
 
         [HttpGet("/api/v1/characters/{id}/death")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+
         public IActionResult ObtenerMuerte(int id)
         {
             return Ok($"Detalles de la muerte del personaje {id}");
