@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-
+namespace GotSeries.Api.Service.DTOS.RESPONSE;
 public class BattlelistDto
 {
     public int amountAttackerSoldiers { get; set; }

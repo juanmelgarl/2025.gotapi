@@ -1,7 +1,10 @@
-﻿using GotSeries.Api.Service.Code;
+﻿using System.Threading.Tasks;
+using GotSeries.Api.Service.Code;
 using GotSeries.Api.Service.Domains.Constants;
 using GotSeries.Api.Service.DTOS.RESPONSE;
+using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace GotSeries.Api.Service.Controllers
@@ -10,6 +13,12 @@ namespace GotSeries.Api.Service.Controllers
     [ApiController]
     public class BattlesController : ControllerBase
     {
+        private readonly GotDbContext _dbcontext;
+        public BattlesController(GotDbContext dbContext)
+            {
+            _dbcontext = dbContext;
+        }
+
         [HttpGet("/api/v1/battles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
@@ -19,13 +28,13 @@ namespace GotSeries.Api.Service.Controllers
             return Ok(new List<personaje>());
         }
 
-        [HttpGet("/api/v1/battles/{id}")]
+        [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public IActionResult LeerBatalla(int id, [FromQuery] charactertype tipoPersonaje, CharacterDto dto)
+        public async Task<IActionResult> LeerBatalla(int id,charactertype charactertype)
         {
-          
-            return Ok(new { id, tipoPersonaje });
+            var battle = await _dbcontext.Battles.FirstOrDefaultAsync(b => b.Id == id);
+            return Ok(id);
         }
 
         [HttpGet("/api/v1/battles/{id}/participation")]

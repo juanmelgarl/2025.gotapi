@@ -1,4 +1,4 @@
-using System.Text.Json.Serialization; 
+using System.Text.Json.Serialization;
 using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +24,7 @@ builder.Services.AddRouting(options =>
 });
 builder.Services.AddDbContext<GotDbContext>(
     options => options.UseSqlServer(
-        builder.Configuration.GetConnectionString("GotDb")),
+        builder.Configuration.GetConnectionString("GotDB")),
     ServiceLifetime.Scoped);
 
 builder.Services.AddControllers();

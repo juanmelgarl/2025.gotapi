@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using GotSeries.Api.Service.DTOS.RESPONSE;
+namespace GotSeries.Api.Service.DTOS.REQUEST;
 
 public class CreateBattleDto
 {

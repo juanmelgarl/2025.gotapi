@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+namespace GotSeries.Api.Service.DTOS.RESPONSE;
 
 public class Rootobject
 {
