@@ -1,4 +1,7 @@
-﻿using GotSeries.Api.Service.Domains.Constants;
+﻿using GotSeries.Api.Service.Code;
+using GotSeries.Api.Service.Domains.Constants;
+using GotSeries.Api.Service.DTOS.RESPONSE;
+using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
@@ -7,16 +10,20 @@ namespace GotSeries.Api.Service.Controllers
     [ApiController]
     public class CharactersController : ControllerBase
     {
-        [HttpGet("/api/v1/characters")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-
-        public IActionResult Get([FromQuery] charactertype tipoPersonaje)
+       
+        private readonly GotDbContext _dbcontext;
+        public CharactersController(GotDbContext dbContext)
         {
-         
-            return Ok(new { tipoPersonaje }); 
+            _dbcontext = dbContext;
+        }
+        [HttpGet("{charactertype}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<List<CharacterDto>> ListarBatallas(PaginatedRequest paginatedRequest)
+        {
+            var list = new List<CharacterDto>();
+            return Ok(list); 
         }
 
-        // PUT /api/v1/characters/5
         [HttpPut("/api/v1/characters/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
