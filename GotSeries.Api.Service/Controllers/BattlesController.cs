@@ -1,46 +1,81 @@
-﻿using GotSeries.Api.Service.Code;
+﻿using System.Threading.Tasks;
+using GotSeries.Api.Service.Code;
 using GotSeries.Api.Service.Domains.Constants;
-using GotSeries.Api.Service.DTOS.REQUEST;
 using GotSeries.Api.Service.DTOS.RESPONSE;
 using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
-[Route("api/v1/battles")]
-[ApiController]
-public class BattlesController : ControllerBase
+namespace GotSeries.Api.Service.Controllers
 {
-    private readonly GotDbContext _dbcontext;
-    public BattlesController(GotDbContext dbContext) => _dbcontext = dbContext;
-
-    [HttpGet]
-    public ActionResult<List<personaje>> ListarBatallas([FromQuery] PaginatedRequest paginatedRequest)
-        => Ok(new List<personaje>());
-
-    [HttpGet("{id}")]
-    public async Task<IActionResult> LeerBatalla([FromRoute] int id, [FromQuery] charactertype charactertype)
+    [Route("api/[controller]")]
+    [ApiController]
+    public class BattlesController : ControllerBase
     {
-        var battle = await _dbcontext.Battles.FirstOrDefaultAsync(b => b.Id == id);
-        return battle != null ? Ok(battle) : NotFound();
+        private readonly GotDbContext _dbcontext;
+        public BattlesController(GotDbContext dbContext)
+        {
+            _dbcontext = dbContext;
+        }
+
+        [HttpGet("/api/v1/battles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public ActionResult<List<personaje>> ListarBatallas(PaginatedRequest paginatedRequest)
+        {
+            return Ok(new List<personaje>());
+        }
+
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> LeerBatalla(int id, charactertype charactertype)
+        {
+            var battle = await _dbcontext.Battles.FirstOrDefaultAsync(b => b.Id == id);
+            return Ok(id);
+        }
+
+        [HttpGet("/api/v1/battles/{id}/participation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult ListaCasas(int id, charactertype tipoPersonaje, PaginatedRequest paginatedRequest)
+        {
+            return Ok($"Casas  en batalla {id}");
+        }
+
+        [HttpPost("/api/v1/battles")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult CrearBatalla()
+        {
+            return Ok();
+        }
+
+        [HttpPost("/api/v1/battles/{id}/participation")]
+        public IActionResult AgregarParticipante(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok($"Nuevo participante agregado a batalla {id}");
+        }
+
+        [HttpPut("/api/v1/battles/{id}/participation/{participationType}/{participantId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public IActionResult ModificarParticipante(int id, string participationType, int participantId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(new { id, participationType, participantId });
+        }
+
+        [HttpDelete("/api/v1/battles/{id}/participation/{participationType}/{participantId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public IActionResult EliminarParticipante(int id, string participationType, int participantId)
+        {
+            return Ok($"Participante {participantId} eliminado de batalla {id}");
+        }
     }
-
-    [HttpGet("{id}/participation")]
-    public IActionResult ListaCasas([FromRoute] int id, [FromQuery] charactertype tipoPersonaje, [FromQuery] PaginatedRequest paginatedRequest)
-        => Ok($"Casas en batalla {id}");
-
-    [HttpPost]
-    public IActionResult CrearBatalla([FromBody] battledto batalla)
-        => ModelState.IsValid ? Ok("Batalla creada") : BadRequest(ModelState);
-
-    [HttpPost("{id}/participation")]
-    public IActionResult AgregarParticipante([FromRoute] int id, [FromBody] ParticipantDto participante)
-        => ModelState.IsValid ? Ok($"Nuevo participante agregado a batalla {id}") : BadRequest(ModelState);
-
-    [HttpPut("{id}/participation/{participationType}/{participantId}")]
-    public IActionResult ModificarParticipante([FromRoute] int id, [FromRoute] string participationType, [FromRoute] int participantId, [FromBody] AddParticipationDto participante)
-        => ModelState.IsValid ? Ok(new { id, participationType, participantId }) : BadRequest(ModelState);
-
-    [HttpDelete("{id}/participation/{participationType}/{participantId}")]
-    public IActionResult EliminarParticipante([FromRoute] int id, [FromRoute] string participationType, [FromRoute] int participantId)
-        => Ok($"Participante {participantId} eliminado de batalla {id}");
 }
