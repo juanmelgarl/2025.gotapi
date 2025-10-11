@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class KingdomsController : ControllerBase
     {
-        [HttpGet("/api/v1/kingdoms")]
+        [HttpGet("/api/kingdoms")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListadoReinos(PaginatedRequest paginatedRequest)
@@ -16,7 +16,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         
-        [HttpGet("/api/v1/kingdoms/{id}/locations")]
+        [HttpGet("/api/kingdoms/{id}/locations")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListadoUbicaciones(int id,PaginatedRequest paginatedRequest)
@@ -24,7 +24,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Ubicaciones del reino {id}"); 
         }
 
-        [HttpPut("/api/v1/kingdoms/{id}/locations/{locationId}")]
+        [HttpPut("/api/kingdoms/{id}/locations/{locationId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -38,7 +38,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Ubicación {locationId} modificada en reino {id}");
         }
 
-        [HttpGet("/api/v1/kingdoms/{id}/houses")]
+        [HttpGet("/api/kingdoms/{id}/houses")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListadoCasas(int id,PaginatedRequest paginated)
@@ -46,7 +46,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Casas del reino {id}"); 
         }
 
-        [HttpPost("/api/v1/kingdoms/{id}/houses")]
+        [HttpPost("/api/kingdoms/{id}/houses")]
         public IActionResult CrearCasa(int id)
         {
             if (!ModelState.IsValid)
@@ -56,7 +56,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Casa creada en reino {id}");
         }
 
-        [HttpPost("/api/v1/kingdoms/{id}/houses/{houseId}")]
+        [HttpPost("/api/kingdoms/{id}/houses/{houseId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -69,7 +69,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Datos de casa {houseId} modificados en reino {id}"); 
         }
 
-        [HttpGet("/api/v1/kingdoms/{id}/battles")]
+        [HttpGet("/api/kingdoms/{id}/battles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListadoBatallas(int id, PaginatedRequest paginated)
@@ -77,7 +77,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Batallas en reino {id}"); 
         }
 
-        [HttpGet("/api/v1/kingdoms/{id}/locations/{locationId}/battles")]
+        [HttpGet("/api/kingdoms/{id}/locations/{locationId}/battles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult BatallasEnUbicacion(int id, int locationId)

@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class HousesController : ControllerBase
     {
-        [HttpGet("/api/v1/houses")]
+        [HttpGet("/api/houses")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListadoCasas([FromQuery] PaginatedRequest paginatedRequest)
@@ -16,7 +16,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok("Listado de casas"); 
         }
 
-        [HttpGet("/api/v1/houses/{id}")]
+        [HttpGet("/api/houses/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ReturnHouse(int id)
@@ -24,7 +24,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Detalles de la casa {id}"); 
         }
 
-        [HttpGet("/api/v1/houses/{id}/battles")]
+        [HttpGet("/api/houses/{id}/battles")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ReturnBatallas(int id,PaginatedRequest paginated)
@@ -32,7 +32,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Batallas asociadas a la casa {id}"); 
         }
 
-        [HttpPut("/api/v1/houses/{id}")]
+        [HttpPut("/api/houses/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 

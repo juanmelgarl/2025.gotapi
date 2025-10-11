@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class ShowOrganizationController : ControllerBase
     {
-        [HttpGet("/api/v1/show/seasons")]
+        [HttpGet("/api/show/seasons")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListadoTemporadas(PaginatedRequest paginated)
@@ -15,7 +15,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok("Listado de temporadas");
         }
 
-        [HttpGet("/api/v1/show/seasons/{id}/chapter")]
+        [HttpGet("/api/show/seasons/{id}/chapter")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListarCapitulos(int id, PaginatedRequest paginated)
@@ -23,7 +23,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Capítulos de la temporada {id}"); 
         }
 
-        [HttpGet("/api/v1/show/seasons/{id}/chapter/{chapterId}")]
+        [HttpGet("/api/show/seasons/{id}/chapter/{chapterId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult DetalleCapitulo(int id, int chapterId)
@@ -31,7 +31,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok($"Detalles del capítulo {chapterId} de la temporada {id}"); 
         }
 
-        [HttpGet("/api/v1/show/seasons/{id}/chapter/{chapterId}/deaths")]
+        [HttpGet("/api/show/seasons/{id}/chapter/{chapterId}/deaths")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ListarMuertes(int id, int chapterId,PaginatedRequest paginatedRequest)

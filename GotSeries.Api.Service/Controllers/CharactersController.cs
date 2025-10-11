@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [ApiController]
     public class CharactersController : ControllerBase
     {
@@ -24,7 +24,7 @@ namespace GotSeries.Api.Service.Controllers
             return Ok(list); 
         }
 
-        [HttpPut("/api/v1/characters/{id}")]
+        [HttpPut("/api/characters/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -40,7 +40,7 @@ namespace GotSeries.Api.Service.Controllers
                 return BadRequest("ID inválido");
         }
 
-        [HttpPatch("/api/v1/characters/{id}")]
+        [HttpPatch("/api/characters/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult CambiarTipoPersonaje(int id)
@@ -49,7 +49,7 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         
-        [HttpPost("/api/v1/characters/{id}/death")]
+        [HttpPost("/api/characters/{id}/death")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
 
@@ -63,14 +63,14 @@ namespace GotSeries.Api.Service.Controllers
         }
 
        
-        [HttpGet("/api/v1/characters/{id}/kills")]
+        [HttpGet("/api/characters/{id}/kills")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public IActionResult ObtenerVictimas(int id)
         {
             return Ok($"Victimas del personaje {id}");
         }
 
-        [HttpGet("/api/v1/characters/{id}/death")]
+        [HttpGet("/api/characters/{id}/death")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
         public IActionResult ObtenerMuerte(int id)
