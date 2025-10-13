@@ -1,11 +1,12 @@
 ﻿using System.Threading.Tasks;
 using GotSeries.Api.Service.Code;
 using GotSeries.Api.Service.Domains.Constants;
-using GotSeries.Api.Service.DTOS.RESPONSE;
 using GotSeries.Api.Service.Infrastructure.Data;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using GotSeries.Api.Service.DTOS.RESPONSE;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -14,32 +15,51 @@ namespace GotSeries.Api.Service.Controllers
     public class BattlesController : ControllerBase
     {
         private readonly GotDbContext _dbcontext;
+
+        public List<BattleparticipantDto> Participants { get; private set; } = new();
+
         public BattlesController(GotDbContext dbContext)
         {
             _dbcontext = dbContext;
         }
 
-        [HttpGet("/api/battles")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<BattlelistDto>> ListarBatallas(PaginatedRequest paginatedRequest)
+        [HttpGet]
+        [Route("api/battles")]
+        public async Task<IActionResult> GetBattles([FromQuery] PaginatedRequest page)
         {
-            return Ok(new List<BattlelistDto>());
+            var query = _dbcontext.Battles
+                .Include(b => b.Location)
+               
+                    .ThenInclude(l => l.Kingdom)
+                .Include(b => b.BattleType)
+                .AsQueryable();
+
+            var total = await query.CountAsync();
+
+            var data = await query
+                .Skip((page.Pagenumber - 1) * page.PageSize)
+                .Take(page.PageSize)
+                .Select(b => new BattlelistDto
+                {
+                    id = b.Id,
+                    name = b.Name,
+                    battleType = b.BattleType.BattleType1,
+                })
+                .ToListAsync();
+
+            return Ok(new { Total = total, Data = data });
         }
+
 
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> LeerBatalla(int id, charactertype charactertype)
+        public async Task<IActionResult> GetBattleById(int id)
         {
-            var battle = await _dbcontext.Battles.FirstOrDefaultAsync(b => b.Id == id);
-            return Ok(battle);
+     
+
+            return Ok(id);
         }
 
-        [HttpGet("/api/battles/{id}/participation")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public IActionResult ListaCasas(int id, charactertype tipoPersonaje, PaginatedRequest paginatedRequest)
-        {
-            return Ok($"Casas  en batalla {id}");
-        }
 
         [HttpPost("/api/battles")]
         [ProducesResponseType(StatusCodes.Status200OK)]

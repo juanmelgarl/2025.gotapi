@@ -22,4 +22,5 @@ public class CharacterDto
     public string url { get; set; }
 
     public int usViewers { get; set; }
+    public string type { get; set; }
 }

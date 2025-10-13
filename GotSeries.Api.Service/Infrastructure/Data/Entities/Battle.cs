@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace GotSeries.Api.Service.Infrastructure.Data.Entities;
-
+﻿namespace GotSeries.Api.Service.Infrastructure.Data.Entities;
 public partial class Battle
 {
     public int Id { get; set; }
@@ -36,4 +32,5 @@ public partial class Battle
     public virtual BattleType? BattleType { get; set; }
 
     public virtual Location? Location { get; set; }
+    public string name { get; set; } = null!;
 }

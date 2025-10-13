@@ -10,5 +10,10 @@ public class KilllistDto
     public int killerId { get; set; }
     public string locationComments { get; set; }
     public int locationId { get; set; }
-    public string reason { get; set; }
+    public string Season { get; set; }
+    public string Victim { get; set; } = string.Empty;
+    
+    public string DeathType { get; set; } = string.Empty;
+
+    public string Kingdom { get; set; } = string.Empty;
 }

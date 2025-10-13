@@ -12,4 +12,6 @@ public class BattleparticipantDto
     public bool isKing { get; set; }
     public bool isRoyalty { get; set; }
     public string name { get; set; }
+    public string ParticipantType { get; set; } = string.Empty; 
+    public string ChapterName { get; set; } = string.Empty;
 }

@@ -14,6 +14,7 @@ public partial class BattleKing
     public bool IsAttacker { get; set; }
 
     public virtual Battle Battle { get; set; } = null!;
+    public virtual Chapter Chapter { get; set; }    
 
     public virtual Character? King { get; set; }
 }

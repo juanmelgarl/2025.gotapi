@@ -14,7 +14,9 @@ public class battledto
     public Location location { get; set; }
     public string name { get; set; }
     public string notes { get; set; }
-    public Participant[] participants { get; set; }
+    public string Kingdom { get; set; }
+    public string type { get; set; }
+    public List<BattleparticipantDto> Participants { get; set; } = new();
     public int year { get; set; }
 }
 

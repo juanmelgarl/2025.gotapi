@@ -15,6 +15,9 @@ public class deathinfodto
     public Location location { get; set; }
     public string locationComments { get; set; }
     public string reason { get; set; }
+    public string Victim { get; set; } = string.Empty;
+    public string DeathType { get; set; } = string.Empty;
+    public string Kingdom { get; set; } = string.Empty;
 }
 
 public class Chapter
