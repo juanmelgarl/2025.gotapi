@@ -8,7 +8,7 @@ public partial class Location
     public int Id { get; set; }
 
     public int? KingdomId { get; set; }
-
+    public string Location2  {  get; set; }
     public string Location1 { get; set; } = null!;
 
     public string? Url { get; set; }
