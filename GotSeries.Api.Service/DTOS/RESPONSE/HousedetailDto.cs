@@ -36,6 +36,7 @@ public class Location
     public string name { get; set; }
     public string summary { get; set; }
     public string url { get; set; }
+    public string Locationb { get; set; }
 }
 
 public class Kingdomdto

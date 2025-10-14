@@ -10,7 +10,7 @@ public class Locationdto
     public string url { get; set; }
 }
 
-public class Kingdom
+public class kingDom
 {
     public int id { get; set; }
     public string name { get; set; }

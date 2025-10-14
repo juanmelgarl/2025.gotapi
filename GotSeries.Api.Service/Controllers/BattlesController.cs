@@ -1,8 +1,9 @@
 ﻿using System.Threading.Tasks;
+using GotSeries.Api.Service.Code;
+using GotSeries.Api.Service.DTOS.RESPONSE;
 using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using GotSeries.Api.Service.DTOS.RESPONSE;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -18,28 +19,29 @@ namespace GotSeries.Api.Service.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetBattles()
+        public async Task<ActionResult<List<BattlelistDTO>>> GetBattles([FromQuery] PaginatedRequest pageRequest)
         {
             var query = _dbcontext.Battles
-                .Include(b => b.Location)
-                .ThenInclude(l => l.Kingdom)
                 .Include(b => b.BattleType)
-                .AsQueryable();
-
-            var total = await query.CountAsync();
-
-            var data = await query
-                .Select(b => new BattlelistDto
+                .Include(b => b.Location.Kingdom)          
+                .Select(b => new BattlelistDTO
                 {
                     id = b.Id,
                     name = b.Name,
                     battleType = b.BattleType.BattleType1,
-                    Location = b.Location.Location2,
-                })
+                    location = new Location(),
+                    kingdom = b.Location.Kingdom.Name
+                });
+
+            var paginatedResult = await query
+                .Skip((pageRequest.Pagenumber - 1) * pageRequest.PageSize)
+                .Take(pageRequest.PageSize)
                 .ToListAsync();
 
-            return Ok(new { Total = total, Data = data });
+            return Ok(paginatedResult);
         }
+    
+
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetBattleById(int id)
