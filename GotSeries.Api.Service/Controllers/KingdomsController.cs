@@ -1,4 +1,5 @@
 ﻿using GotSeries.Api.Service.Code;
+using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
@@ -6,13 +7,16 @@ namespace GotSeries.Api.Service.Controllers
     [Route("api/v1/[controller]")]
     [ApiController]
     public class KingdomsController : ControllerBase
+
+             
     {
         [HttpGet("/api/kingdoms")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public IActionResult ListadoReinos(PaginatedRequest paginatedRequest)
+        public ActionResult<List<KingdomDTO>> Getkingdoms (PaginatedRequest paginatedRequest)
         {
-            return Ok("Listado de reinos"); 
+      
+                return Ok(paginatedRequest);
         }
 
         

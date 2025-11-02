@@ -8,7 +8,6 @@ public class CreateBattleDto
     public int locationId { get; set; }
     [Required(ErrorMessage = "el nombre es requerido")]
     public string name { get; set; }
-    [Range(1920, 2100, ErrorMessage = "ingrese un numero que este dentro de 1920 a 2100") ]
     public int year { get; set; }
     public bool attackerWon { get; set; }
     
@@ -17,7 +16,7 @@ public class CreateBattleDto
     public int amountDefenderSoldiers { get; set; }
     public bool hasMayorCapture { get; set; }
     public bool hasMayorDeath { get; set; }
-    public Participant[] participants { get; set; }
+    public ParticipantDto[] participants { get; set; }
 }
 
 public class ParticipantDto

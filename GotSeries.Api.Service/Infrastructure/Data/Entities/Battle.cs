@@ -9,7 +9,7 @@ public partial class Battle
 
     public string Name { get; set; } = null!;
 
-    public short Year { get; set; }
+    public int Year { get; set; }
 
     public bool AttackerWon { get; set; }
 
@@ -32,5 +32,4 @@ public partial class Battle
     public virtual BattleType? BattleType { get; set; }
 
     public virtual Location? Location { get; set; }
-    public string name { get; set; } = null!;
 }
