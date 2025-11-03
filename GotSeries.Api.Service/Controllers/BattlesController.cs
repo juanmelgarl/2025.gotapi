@@ -57,6 +57,37 @@ namespace GotSeries.Api.Service.Controllers
             return Ok(battle);
             
         }
+        [HttpGet("/v1/battles/")]
+        public ActionResult<List<battledto>> buscarbatalla([FromQuery] int id)
+        {
+            if (id <= 0)
+            {
+                return BadRequest("error");
+            }
+            var battle = _dbcontext.Battles
+               .Where(b => b.Id == id)
+               .Select(p => new battledto
+               {
+                   id = p.Id,
+                   name = p.Name,
+                   year = p.Year,
+                   amountAttackerSoldiers = p.AmountAttackerSoldiers,
+                   attackerWon = p.AttackerWon,
+                   hasMayorCapture = p.HasMayorCapture,
+                   hasMayorDeath = p.HasMayorDeath,
+                   battleType = p.BattleType != null ? p.BattleType.BattleType1 ?? string.Empty : string.Empty,
+                   amountDefenderSoldiers = p.AmountDefenderSoldiers,
+                   battleTypeId = p.BattleTypeId ?? 0,
+                  
+                   type = p.BattleType != null ? p.BattleType.BattleType1 ?? string.Empty : string.Empty,
+                   Kingdom = string.Empty,
+                   Participants = new List<BattleparticipantDto>(),
+
+
+               })
+               .ToList();
+            return Ok(battle);
+        }
 
         [HttpPost]
         public async Task<IActionResult> CreateBatalla([FromBody] CreateBattleDto createBattle)
@@ -96,5 +127,7 @@ namespace GotSeries.Api.Service.Controllers
 
             return Ok(newbattle);
         }
+
+        }
     }
-}
+
