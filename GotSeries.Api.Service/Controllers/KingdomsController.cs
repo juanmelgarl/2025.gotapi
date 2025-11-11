@@ -1,4 +1,5 @@
 ﻿using GotSeries.Api.Service.Code;
+using GotSeries.Api.Service.DTOS.Response;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
@@ -12,7 +13,7 @@ namespace GotSeries.Api.Service.Controllers
         [HttpGet("/api/kingdoms")]
         [ProducesResponseType(StatusCodes.Status200OK)]
 
-        public ActionResult<List<KingdomDTO>> Getkingdoms (PaginatedRequest paginatedRequest)
+        public ActionResult<List<KingdomDto>> Getkingdoms (PaginatedRequest paginatedRequest)
         {
       
                 return Ok(paginatedRequest);

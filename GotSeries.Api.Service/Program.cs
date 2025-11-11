@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -16,7 +17,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
+builder.Services.AddDbContext<GotDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("GotDb")),
+    ServiceLifetime.Scoped);
 builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;

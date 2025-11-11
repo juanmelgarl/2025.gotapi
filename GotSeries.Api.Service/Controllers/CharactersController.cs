@@ -1,6 +1,6 @@
 ﻿using GotSeries.Api.Service.Code;
 using GotSeries.Api.Service.Domains.Constants;
-using GotSeries.Api.Service.DTOS.RESPONSE;
+using GotSeries.Api.Service.DTOS.Response;
 
 using Microsoft.AspNetCore.Mvc;
 
