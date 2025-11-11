@@ -1,5 +1,4 @@
 ﻿using GotSeries.Api.Service.Code;
-using GotSeries.Api.Service.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
@@ -18,6 +17,7 @@ namespace GotSeries.Api.Service.Controllers
       
                 return Ok(paginatedRequest);
         }
+     
 
         
         [HttpGet("/api/kingdoms/{id}/locations")]
@@ -72,6 +72,7 @@ namespace GotSeries.Api.Service.Controllers
             }
             return Ok($"Datos de casa {houseId} modificados en reino {id}"); 
         }
+
 
         [HttpGet("/api/kingdoms/{id}/battles")]
         [ProducesResponseType(StatusCodes.Status200OK)]

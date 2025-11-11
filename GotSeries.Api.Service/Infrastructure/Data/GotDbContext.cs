@@ -52,14 +52,6 @@ public partial class GotDbContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false);
             entity.Property(e => e.Notes).IsUnicode(false);
-
-            entity.HasOne(d => d.BattleType).WithMany(p => p.Battles)
-                .HasForeignKey(d => d.BattleTypeId)
-                .HasConstraintName("FK_Battles_BattleTypeId");
-
-            entity.HasOne(d => d.Location).WithMany(p => p.Battles)
-                .HasForeignKey(d => d.LocationId)
-                .HasConstraintName("FK_Battles_LocationId");
         });
 
         modelBuilder.Entity<BattleCommander>(entity =>
@@ -227,6 +219,9 @@ public partial class GotDbContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false)
                 .HasColumnName("Location");
+            entity.Property(e => e.Name)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Summary).IsUnicode(false);
             entity.Property(e => e.Url)
                 .HasMaxLength(200)

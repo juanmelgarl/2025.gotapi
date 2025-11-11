@@ -1,4 +1,8 @@
-﻿namespace GotSeries.Api.Service.Infrastructure.Data.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace GotSeries.Api.Service.Infrastructure.Data.Entities;
+
 public partial class Battle
 {
     public int Id { get; set; }
@@ -23,13 +27,11 @@ public partial class Battle
 
     public int AmountDefenderSoldiers { get; set; }
 
+    public virtual BattleType BattleType { get; set; }
+    public virtual Location Location { get; set; }
     public virtual ICollection<BattleCommander> BattleCommanders { get; set; } = new List<BattleCommander>();
 
     public virtual ICollection<BattleHouse> BattleHouses { get; set; } = new List<BattleHouse>();
 
     public virtual ICollection<BattleKing> BattleKings { get; set; } = new List<BattleKing>();
-
-    public virtual BattleType? BattleType { get; set; }
-
-    public virtual Location? Location { get; set; }
 }

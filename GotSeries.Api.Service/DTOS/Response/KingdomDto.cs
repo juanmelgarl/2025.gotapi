@@ -1,12 +1,13 @@
 ﻿namespace GotSeries.Api.Service.DTOS.Response
 {
-    public class SeasonDto
+    public class KingdomDto
     {
 
-      
+     
             public int id { get; set; }
             public string name { get; set; }
-            public int year { get; set; }
+            public string summary { get; set; }
+            public string url { get; set; }
         }
 
     }

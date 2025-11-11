@@ -1,11 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-public class HouseDto
+﻿namespace GotSeries.Api.Service.DTOS.Response
 {
-    public string coatOfArmsUrl { get; set; }
-    public int id { get; set; }
-    public string name { get; set; }
-    public string summary { get; set; }
-    public string Kingdom { get; set; }
-    public string url { get; set; }
-}
+    public class HouseDto
+    {
+
+       
+            public string coatOfArmsUrl { get; set; }
+            public int id { get; set; }
+            public string name { get; set; }
+            public string summary { get; set; }
+            public string url { get; set; }
+        }
+
+    }
+

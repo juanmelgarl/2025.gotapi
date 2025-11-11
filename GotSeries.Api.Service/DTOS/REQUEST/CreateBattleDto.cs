@@ -1,28 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
-using GotSeries.Api.Service.DTOS.RESPONSE;
-namespace GotSeries.Api.Service.DTOS.REQUEST;
-
-public class CreateBattleDto
+﻿namespace GotSeries.Api.Service.DTOS.Request
 {
-    public int battleTypeId { get; set; }
-    public int locationId { get; set; }
-    [Required(ErrorMessage = "el nombre es requerido")]
-    public string name { get; set; }
-    public int year { get; set; }
-    public bool attackerWon { get; set; }
-    
-    public string notes { get; set; }
-    public int amountAttackerSoldiers { get; set; }
-    public int amountDefenderSoldiers { get; set; }
-    public bool hasMayorCapture { get; set; }
-    public bool hasMayorDeath { get; set; }
-    public ParticipantDto[] participants { get; set; }
-}
+  
+        public class Rootobject
+        {
+            public int battleTypeId { get; set; }
+            public int locationId { get; set; }
+            public string name { get; set; }
+            public int year { get; set; }
+            public bool attackerWon { get; set; }
+            public string notes { get; set; }
+            public int amountAttackerSoldiers { get; set; }
+            public int amountDefenderSoldiers { get; set; }
+            public bool hasMayorCapture { get; set; }
+            public bool hasMayorDeath { get; set; }
+            public Participant[] participants { get; set; }
+        }
 
-public class ParticipantDto
-{ 
+        public class Participant
+        {
+            public string participationType { get; set; }
+            public int participantId { get; set; }
+            public bool isAttacker { get; set; }
+        }
 
-    public string participationType { get; set; }
-    public int participantId { get; set; }
-    public bool isAttacker { get; set; }
-}
+    }
+

@@ -1,7 +1,7 @@
 ﻿using GotSeries.Api.Service.Code;
 using GotSeries.Api.Service.Domains.Constants;
 using GotSeries.Api.Service.DTOS.RESPONSE;
-using GotSeries.Api.Service.Infrastructure.Data;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace GotSeries.Api.Service.Controllers
@@ -11,18 +11,18 @@ namespace GotSeries.Api.Service.Controllers
     public class CharactersController : ControllerBase
     {
        
-        private readonly GotDbContext _dbcontext;
-        public CharactersController(GotDbContext dbContext)
+      
+        [HttpGet("/api/v1/characters/{characterTyp\r\ne}")]
+        public IActionResult Listarpersonajes()
         {
-            _dbcontext = dbContext;
+            return Ok();
         }
-        [HttpGet("{charactertype}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public ActionResult<List<CharacterDto>> ListarBatallas(PaginatedRequest paginatedRequest)
-        {
-            var list = new List<CharacterDto>();
-            return Ok(list); 
+        [HttpPut("/api/v1/characters/{id}")]
+        public IActionResult Modificarpersonaje()
+        {return Ok();
+
         }
+       
 
         [HttpPut("/api/characters/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -77,5 +77,6 @@ namespace GotSeries.Api.Service.Controllers
         {
             return Ok($"Detalles de la muerte del personaje {id}");
         }
+
     }
 }

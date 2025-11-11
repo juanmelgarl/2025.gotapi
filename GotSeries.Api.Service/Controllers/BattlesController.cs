@@ -2,132 +2,104 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GotSeries.Api.Service.Code;
-using GotSeries.Api.Service.DTOS.REQUEST;
-using GotSeries.Api.Service.DTOS.RESPONSE;
-using GotSeries.Api.Service.Infrastructure.Data;
-using GotSeries.Api.Service.Infrastructure.Data.Entities;
+
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using GotSeries.Api.Service.Infrastructure.Data;
 
 namespace GotSeries.Api.Service.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BattlesController : ControllerBase
+    public class BattlesController(GotDbContext dbContext) : ControllerBase
     {
-        private readonly GotDbContext _dbcontext;
+        [HttpGet("{id:int}")]
+        public ActionResult<Battledto> BuscarporID([FromRoute] int id)
+        {
+            return Ok();
 
-        public BattlesController(GotDbContext dbContext) => _dbcontext = dbContext;
-
-
-
-                [HttpGet("{id:int}")]
-             public ActionResult<battledto> BuscarporID([FromRoute] int id) 
-            {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-            if (id <= 0)
-                return BadRequest("El id debe ser mayor que cero.");
-    
-
-            var battle = _dbcontext.Battles
-                .Where(b => b.Id == id)
-                .Select(p => new battledto
-                {
-                    id = p.Id,
-                    name = p.Name,
-                    year = p.Year,
-                    amountAttackerSoldiers
-                        = p.AmountAttackerSoldiers,
-                    hasMayorCapture = p.HasMayorCapture,
-                    attackerWon = p.AttackerWon,
-                    amountDefenderSoldiers = p.AmountDefenderSoldiers,
-                    hasMayorDeath = p.HasMayorDeath,
-                    notes = p.Notes,
-                    battleType = p.BattleType != null ? p.BattleType.BattleType1 ?? string.Empty : string.Empty,
-                    
-                   
-                   
-                })
-                .FirstOrDefault();
-
-            if (battle == null)
-                return NotFound("no se encontro la batalla con esa id.");
-            
-            return Ok(battle);
-            
         }
+        [HttpDelete("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
+        public IActionResult Borrarparticipante()
+        {
+            return Ok();
+        }
+        [HttpGet("/api/v1/characters/{characterType}")]
+        public IActionResult Listarpersonajes()
+        {
+            return Ok();
+        }
+        
+       
+
+        
         [HttpGet("/v1/battles/")]
-        public ActionResult<List<battledto>> buscarbatalla([FromQuery] int id)
+        public ActionResult<List<BattlelistDTO>> buscarbatalla()
         {
-            if (id <= 0)
-            {
-                return BadRequest("error");
-            }
-            var battle = _dbcontext.Battles
-               .Where(b => b.Id == id)
-               .Select(p => new battledto
+            var battles = dbContext.Battles
+                .Include(x => x.BattleType)
+                .Include(c => c.Location)
+                .ThenInclude(x => x.Kingdom)
+               .Select(b => new BattlelistDTO
+
+
                {
-                   id = p.Id,
-                   name = p.Name,
-                   year = p.Year,
-                   amountAttackerSoldiers = p.AmountAttackerSoldiers,
-                   attackerWon = p.AttackerWon,
-                   hasMayorCapture = p.HasMayorCapture,
-                   hasMayorDeath = p.HasMayorDeath,
-                   battleType = p.BattleType != null ? p.BattleType.BattleType1 ?? string.Empty : string.Empty,
-                   amountDefenderSoldiers = p.AmountDefenderSoldiers,
-                   battleTypeId = p.BattleTypeId ?? 0,
-                  
-                   type = p.BattleType != null ? p.BattleType.BattleType1 ?? string.Empty : string.Empty,
-                   Kingdom = string.Empty,
-                   Participants = new List<BattleparticipantDto>(),
+                   id = b.Id,
+                   name = b.Name,
+                   amountAttackerSoldiers = b.AmountAttackerSoldiers,
+                   amountDefenderSoldiers = b.AmountDefenderSoldiers,
+                   hasMayorCapture = b.HasMayorCapture,
+                   hasMayorDeath = b.HasMayorDeath,
+                   year = b.Year,
+                   
 
 
-               })
-               .ToList();
-            return Ok(battle);
-        }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateBatalla([FromBody] CreateBattleDto createBattle)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
 
-            var battletypeexists = await _dbcontext.BattleTypes.AnyAsync(b => b.Id == createBattle.battleTypeId);
-            if (!battletypeexists)
-            {
-                return NotFound("no se encontro la batalla indicada");
-            }
 
-            var locationexits = await _dbcontext.Locations.AnyAsync(x => x.Id == createBattle.locationId);
-            if (!locationexits)
-                return NotFound("error");
 
-            var newbattle = new GotSeries.Api.Service.Infrastructure.Data.Entities.Battle
-            {
-                BattleTypeId = createBattle.battleTypeId,
+
+
+               });
                
                 
-                Name = createBattle.name,
-                Notes = createBattle.notes,
-                Year = createBattle.year,
-                AmountAttackerSoldiers = createBattle.amountAttackerSoldiers,
-                AmountDefenderSoldiers = createBattle.amountDefenderSoldiers,
-                LocationId = createBattle.locationId,
-                HasMayorCapture = createBattle.hasMayorCapture,
-                HasMayorDeath = createBattle.hasMayorDeath,
-                AttackerWon  = createBattle.attackerWon,
-            };
-            _dbcontext.Battles.Add(newbattle);
-            await _dbcontext.SaveChangesAsync();
-
-            return Ok(newbattle);
+        }
+        [HttpGet("/api/v1/battles/{id}/participation")]
+        public ActionResult Añadirparticipante()
+        {
+            return
+                Ok();
+        }
+        [HttpPut("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
+        public ActionResult Modificarparticipante()
+        {
+            return
+               Ok();
         }
 
+        [HttpPost("/api/v1/battles")]
+        public async Task<IActionResult> CreateBatalla([FromBody] CreateBattleDto createBattle)
+        {
+           
+            return Ok();
         }
+        [HttpDelete("v1/battles/{id}")]
+        public ActionResult<Battledto> BorrarBatalla(int id)
+        {
+            return Ok();
+
+        }
+        [HttpGet("/api/v1/battles/{id}/participation")]
+        public ActionResult Listadocasas(int id)
+        {
+            return Ok();
+        }
+
+
+
     }
+
+}
 

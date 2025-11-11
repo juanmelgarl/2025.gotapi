@@ -14,7 +14,6 @@ public partial class BattleCommander
     public bool IsAttacker { get; set; }
 
     public virtual Battle Battle { get; set; } = null!;
-    public virtual Chapter Chapter { get; set; }
 
     public virtual Character Commander { get; set; } = null!;
 }
