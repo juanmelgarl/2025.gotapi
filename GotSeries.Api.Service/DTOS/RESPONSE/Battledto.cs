@@ -12,7 +12,7 @@
             public bool hasMayorCapture { get; set; }
             public bool hasMayorDeath { get; set; }
             public int id { get; set; }
-            public Location location { get; set; }
+            public LocationDto location { get; set; }
             public string name { get; set; }
             public string notes { get; set; }
             public Participant[] participants { get; set; }
