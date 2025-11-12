@@ -24,7 +24,10 @@ builder.Services.AddRouting(options =>
 {
     options.LowercaseUrls = true;
 });
-
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+});
 
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();

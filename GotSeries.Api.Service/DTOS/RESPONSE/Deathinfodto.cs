@@ -2,9 +2,6 @@
 {
     public class DeathInfoDto
     {
-
-        public class Rootobject
-        {
             public string allegiance { get; set; }
             public Chapter chapter { get; set; }
             public string deathCategory { get; set; }
@@ -55,22 +52,9 @@
             public string name { get; set; }
         }
 
-        public class Location
-        {
-            public int id { get; set; }
-            public Kingdom kingdom { get; set; }
-            public string name { get; set; }
-            public string summary { get; set; }
-            public string url { get; set; }
-        }
-
-        public class Kingdom
-        {
-            public int id { get; set; }
-            public string name { get; set; }
-            public string summary { get; set; }
-            public string url { get; set; }
-        }
+       
+  
 
     }
-}
+
+

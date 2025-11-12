@@ -10,7 +10,15 @@
             public string seasonName { get; set; }
             public string url { get; set; }
             public int usViewers { get; set; }
-        }
+
+        public bool IsCommander { get; set; }
+        public bool IsKing { get; set; }
+        public bool IsDeath { get; set; }
+        public bool IsGeneric { get; set; }
+        public bool IsHuman { get; set; }
+        public bool IsRoyalty { get; set; }
 
     }
+
+}
 

@@ -1,7 +1,7 @@
 ﻿namespace GotSeries.Api.Service.DTOS.Request
 {
   
-        public class Rootobject
+        public class CreateBattleDto
         {
             public int battleTypeId { get; set; }
             public int locationId { get; set; }

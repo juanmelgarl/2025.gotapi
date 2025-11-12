@@ -27,7 +27,7 @@ public partial class Battle
 
     public int AmountDefenderSoldiers { get; set; }
 
-    public virtual BattleType BattleType { get; set; }
+    public virtual BattleType? BattleType { get; set; }
     public virtual Location Location { get; set; }
     public virtual ICollection<BattleCommander> BattleCommanders { get; set; } = new List<BattleCommander>();
 

@@ -3,13 +3,13 @@
 namespace GotSeries.Api.Service.Domains.Constants
 {
     [JsonConverter(typeof(JsonStringEnumConverter))]
-    public enum charactertype
+    public enum charactertype 
         {
-            rey,
-            comandante,
-            guerrero,
-            houses,
-            kingdoms
+            Rey,
+            Comandante,
+            Guerrero,
+            Houses,
+            Kingdoms
         }
     }
     

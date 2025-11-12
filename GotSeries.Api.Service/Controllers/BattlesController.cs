@@ -10,6 +10,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using GotSeries.Api.Service.Infrastructure.Data;
 using GotSeries.Api.Service.DTOS.Response;
 using System.Security.Cryptography.Xml;
+using GotSeries.Api.Service.Infrastructure.Data.Entities;
+using GotSeries.Api.Service.DTOS;
+using GotSeries.Api.Service.DTOS.Request;
 
 namespace GotSeries.Api.Service.Controllers
 {
@@ -64,21 +67,35 @@ namespace GotSeries.Api.Service.Controllers
                 return NotFound("no se encontro la batalla");
             }
             return Ok(battle);
-                         
-                   
-        
-    }
 
-        
-        [HttpDelete("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
-        public IActionResult Borrarparticipante()
+
+
+        }
+
+
+        [HttpDelete("/api/v1/battles/{battleid}/participation/\r\n{participationType}/{participationId}")]
+        public IActionResult Borrarparticipante(int battleid, int participantionid, string participationType)
         {
             return Ok();
         }
-        [HttpGet("/api/v1/characters/{characterType}")]
-        public IActionResult Listarpersonajes()
+        [HttpGet("{characterType?}")]
+        public IActionResult Listarpersonajes(string characterType)
         {
-            return Ok();
+
+            var personajes = _dbContext.Characters
+                   .Select(x => new CharacterDto
+                   {
+                       id = x.Id,
+                       name = x.Name,
+                       IsDeath = x.IsDeath,
+                       IsCommander = x.IsCommander,
+                       IsHuman = x.IsHuman,
+                       IsKing = x.IsKing,
+                       IsGeneric = x.IsGeneric,
+                   })
+                   .ToList();
+            return Ok(personajes);
+
         }
 
 
@@ -87,42 +104,91 @@ namespace GotSeries.Api.Service.Controllers
         public ActionResult<List<BattleListDto>> BuscarBatalla()
         {
             var battles = _dbContext.Battles
-                .Include(b => b.BattleType)
-                .Include(b => b.Location)
-                .ThenInclude(l => l.Kingdom)
-                .AsNoTracking() 
                 .Select(b => new BattleListDto
                 {
                     id = b.Id,
                     name = b.Name,
+                    year = b.Year,
                     amountAttackerSoldiers = b.AmountAttackerSoldiers,
                     amountDefenderSoldiers = b.AmountDefenderSoldiers,
                     hasMayorCapture = b.HasMayorCapture,
                     hasMayorDeath = b.HasMayorDeath,
-                    year = b.Year,
-
-                    battleType = b.BattleType != null ? b.BattleType.BattleType1 : "Sin tipo",
                     battleTypeId = b.BattleTypeId ?? 0,
-
-                    location = b.Location != null ? new LocationDto
+                    battleType = b.BattleType.BattleType1,
+                    location = b.Location == null ? null : new LocationDto
                     {
                         id = b.Location.Id,
-                        name = b.Location.Name ?? "Desconocido",
-                        summary = b.Location.Summary ?? "",
-                        url = b.Location.Url ?? "",
-                        kingdom = b.Location.Kingdom != null ? new KingdomDto
+                        name = b.Location.Name,
+                        kingdom = b.Location.Kingdom == null ? null : new KingdomDto
                         {
                             id = b.Location.Kingdom.Id,
-                            name = b.Location.Kingdom.Name ?? "Sin Reino",
-                            summary = b.Location.Kingdom.Summary ?? "",
-                            url = b.Location.Kingdom.Url ?? ""
-                        } : null
-                    } : null
+                            summary = b.Location.Kingdom.Summary,
+                            url = b.Location.Kingdom.Url,
+                            name = b.Location.Kingdom.Name
+                        },
+
+                        url = b.Location.Url,
+                        summary = b.Location.Summary,
+
+                    }
+
                 })
                 .ToList();
 
             return Ok(battles);
         }
+
+        [HttpPost("/api/v1/battles/{battleid}/participation")]
+        public ActionResult Agregarparticipante([FromRoute] int battleId, [FromBody] BattleParticipantDto dto)
+
+        {
+            var battle = _dbContext.Battles.Find(battleId);
+            if (battle == null)
+            {
+                return NotFound(new ProblemDetails
+                {
+                    Title = "No encontrada",
+                    Detail = $"No existe la batalla con el id {battleId}",
+                    Status = 404
+                });
+            }
+
+            var personaje = _dbContext.Characters.Find(dto.id);
+            if (personaje == null)
+            {
+                return NotFound("Personaje no encontrado");
+            }
+            if (dto.IsCommander)
+            {
+                _dbContext.BattleCommanders.Add(new BattleCommander
+                {
+                    BattleId = battleId,
+                    CommanderId = dto.id,
+                    IsAttacker = dto.isAttacker
+                });
+            }
+            else if (dto.IsKing)
+            {
+                _dbContext.BattleKings.Add(new BattleKing
+                {
+                    BattleId = battleId,
+                    KingId = dto.id,
+                    IsAttacker = dto.isAttacker
+                });
+            }
+
+
+            _dbContext.SaveChanges();
+            return Ok();
+        }
+
+
+
+
+
+
+
+
 
 
         [HttpGet("/api/v1/battles/{id}/participation")]
@@ -141,19 +207,19 @@ namespace GotSeries.Api.Service.Controllers
             {
                 participantes.AddRange(
                     Participante.BattleHouses.Select(h => new BattleParticipantDto
-                              
+
 
                     {
                         id = h.House.Id,
                         name = h.House.Name,
                         participationType = 1,
                         isAttacker = h.IsAttacker,
-                        isDeath = false,
-                        isCommander = false,
-                        isHumman = false,
-                        isKing = false,
-                        isGeneric = true,
-                        isRoyalty = false,
+                        IsDeath = false,
+                        IsCommander = false,
+                        IsHuman = false,
+                        IsKing = false,
+                        IsGeneric = true,
+                        IsRoyalty = false,
 
                     })
                    );
@@ -167,12 +233,12 @@ namespace GotSeries.Api.Service.Controllers
                         name = k.King.Name,
                         participationType = 2, // 2 = Rey
                         isAttacker = k.IsAttacker,
-                        isCommander = false,
-                        isDeath = false,
-                        isGeneric = false,
-                        isHumman = true,
-                        isKing = true,
-                        isRoyalty = true
+                        IsCommander = false,
+                        IsDeath = false,
+                        IsGeneric = false,
+                        IsHuman = true,
+                        IsKing = true,
+                        IsRoyalty = true
                     })
                 );
             }
@@ -184,47 +250,88 @@ namespace GotSeries.Api.Service.Controllers
                     {
                         id = c.Commander.Id,
                         name = c.Commander.Name,
-                        participationType = 3, 
+                        participationType = 3,
                         isAttacker = c.IsAttacker,
-                        isCommander = true,
-                        isDeath = false,
-                        isGeneric = false,
-                        isHumman = true,
-                        isKing = false,
-                        isRoyalty = false
+                        IsCommander = true,
+                        IsDeath = false,
+                        IsGeneric = false,
+                        IsHuman = true,
+                        IsKing = false,
+                        IsRoyalty = false
+
                     })
                 );
             }
 
             return Ok(participantes);
         }
-                
-        
-        [HttpPut("/api/v1/battles/{id}/participation/\r\n{participationType}/{participant\r\nId}")]
-        public ActionResult Modificarparticipante()
+
+
+        [HttpPut("/api/v1/battles/{id}/participation/\r\n{participationType}/{participantionId}")]
+        public ActionResult Modificarparticipante(int id, string participationType, int participantId)
         {
-            return
-               Ok();
+            {
+                var personaje = _dbContext.Characters.Find(id);
+            }
         }
+            [HttpPost("/api/v1/battles")]
+            public ActionResult CreateBatalla([FromBody] CreateBattleDto dto)
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest(ModelState);
+                var batalla = new GotSeries.Api.Service.Infrastructure.Data.Entities.Battle
+                {
+                    Name = dto.name,
+                    AmountAttackerSoldiers = dto.amountAttackerSoldiers,
+                    AmountDefenderSoldiers = dto.amountDefenderSoldiers,
+                    AttackerWon = dto.attackerWon,
+                    HasMayorCapture = dto.hasMayorCapture,
+                    HasMayorDeath = dto.hasMayorDeath,
+                    Year = dto.year,
+                    Notes = dto.notes,
 
-        [HttpPost("/api/v1/battles")]
-        public async Task<IActionResult> CreateBatalla()
-        {
 
-            return Ok();
+
+
+
+                };
+                _dbContext.Battles.Add(batalla);
+                _dbContext.SaveChanges();
+                return Ok();
+
+            }
+            [HttpDelete("v1/battles/{id}")]
+            public ActionResult<BattleDto> BorrarBatalla(int id)
+            {
+                var comandantes = _dbContext.BattleCommanders
+        .Where(c => c.BattleId == id)
+        .ToList();
+                _dbContext.BattleCommanders.RemoveRange(comandantes);
+
+                var batalla = _dbContext.Battles.FirstOrDefault(x => x.Id == id);
+                if (batalla == null)
+                {
+                    return NotFound("la batalla no existe");
+                }
+                var kings = _dbContext.BattleKings
+                .Where(x => x.BattleId == id)
+                .ToList();
+                _dbContext.BattleKings.RemoveRange(kings);
+                var house = _dbContext.BattleHouses
+                    .Where(x => x.BattleId == id)
+                    .ToList();
+                _dbContext.BattleHouses.RemoveRange(house);
+                _dbContext.Battles.Remove(batalla);
+                _dbContext.SaveChanges();
+                return NoContent();
+
+
+
+            }
         }
-        [HttpDelete("v1/battles/{id}")]
-        public ActionResult<BattleDto> BorrarBatalla(int id)
-        {
-            return Ok();
-
-        }
-     
-
-
-
     }
-}
+
+
 
 
 
